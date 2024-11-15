@@ -1,25 +1,26 @@
 import { useState } from "react";
 import "./navbar.scss";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   console.log(open);
   return (
     <nav>
       <div className="left">
-        <a className="logo" href="./">
+        <Link className="logo" to="./">
           <img src="./logo.png" alt="" />
           <span>NestScout</span>
-        </a>
-        <a href="/">Home</a>
-        <a href="/">About</a>
-        <a href="/">Contact</a>
-        <a href="/">Agents</a>
+        </Link>
+        <Link to="/">Home</Link>
+        <Link to="/">About</Link>
+        <Link to="/">Contact</Link>
+        <Link to="/">Agents</Link>
       </div>
       <div className="right">
-        <a href="/">Sign in</a>
-        <a className="register" href="/">
+        <Link to="/">Sign in</Link>
+        <Link className="register" to="/">
           Sign up
-        </a>
+        </Link>
         <div className="menuIcon">
           <img
             src="/menu.png"
@@ -28,12 +29,12 @@ const Navbar = () => {
           />
         </div>
         <div className={open ? "menu active" : "menu"}>
-          <a href="">Home</a>
-          <a href="">About</a>
-          <a href="">Contact</a>
-          <a href="">Agents</a>
-          <a href="">Sign in</a>
-          <a href="">Sign up</a>
+          <Link to="">Home</Link>
+          <Link to="">About</Link>
+          <Link to="">Contact</Link>
+          <Link to="">Agents</Link>
+          <Link to="">Sign in</Link>
+          <Link to="">Sign up</Link>
         </div>
       </div>
     </nav>
