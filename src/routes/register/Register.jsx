@@ -1,15 +1,36 @@
 import "./register.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 function Register() {
-  const handleSubmit = (e) => {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const username = e.target.username.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log(typeof username, email, password);
+    // console.log(typeof username, email, password);
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/register", {
+        username,
+        email,
+        password,
+      });
+
+      //   console.log(res.data);
+      toast.success("Successfully Registered!");
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.message);
+    }
   };
 
   return (
@@ -31,6 +52,7 @@ function Register() {
             placeholder="Password"
           />
           <button type="submit">Register</button>
+          {error && <span>{error}</span>}
           <Link to="/login">Do you have an account?</Link>
         </form>
       </div>
