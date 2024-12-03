@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import apiRequest from "../../lib/apiRequest.js";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 function Login() {
   const [error, setError] = useState("");
   const [isloading, setIsloading] = useState(false);
   const navigate = useNavigate();
+  const { updateUser } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ function Login() {
       });
 
       // console.log(res);
-      localStorage.setItem("user", JSON.stringify(res.data)); //Beacuse local storage cannot store object thats why converting it into the string
+      updateUser(res.data);
       toast.success("Successfully Login!");
       navigate("/");
     } catch (err) {
