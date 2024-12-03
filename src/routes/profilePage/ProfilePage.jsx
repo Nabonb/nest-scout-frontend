@@ -4,12 +4,16 @@ import List from "../../components/list/List";
 import apiRequest from "../../lib/apiRequest.js";
 import "./profilePage.scss";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext.jsx";
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const { updateUser, currentUser } = useContext(AuthContext);
+
   const handleLogout = async () => {
     try {
       const res = await apiRequest.post("/auth/logout");
-      localStorage.removeItem("user");
+      updateUser(null); // update user state to null when logged out
       toast.success("Logout Successfully");
       navigate("/");
     } catch (err) {
@@ -27,17 +31,13 @@ const ProfilePage = () => {
           </div>
           <div className="info">
             <span>
-              Avatar:{" "}
-              <img
-                src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                alt=""
-              />
+              Avatar: <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
             </span>
             <span>
-              Username: <b>John Doe</b>
+              Username: <b>{currentUser.username}</b>
             </span>
             <span>
-              E-mail: <b>john@gmail.com</b>
+              E-mail: <b>{currentUser.email}</b>
             </span>
             <button onClick={handleLogout}>Log Out</button>
           </div>
