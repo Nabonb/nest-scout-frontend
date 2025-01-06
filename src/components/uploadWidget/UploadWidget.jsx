@@ -62,6 +62,3 @@ function UploadWidget({ uwConfig, setPublicId, setAvatar }) {
 
 export default UploadWidget;
 export { CloudinaryScriptContext };
-
-// console.log("Upload successful:", result.info);
-// setPublicId(result.info.public_id);
