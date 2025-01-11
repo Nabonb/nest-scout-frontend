@@ -6,6 +6,7 @@ import "./listPage.scss";
 import { Suspense } from "react";
 const ListPage = () => {
   const data = useLoaderData();
+  console.log(data);
 
   return (
     <div className="listPage">
